@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness India - Stronger India</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .hero-bg {
+            background-color: #e8f5e9;
+            background-image: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+        
+        /* Toast Notification Styles */
+        #toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .toast {
+            min-width: 250px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: translateX(120%);
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast.success { background-color: #10B981; }
+        .toast.error { background-color: #EF4444; }
+        .toast.info { background-color: #3B82F6; }
+
+        /* Hidden file inputs */
+        input[type="file"] {
+            display: none;
+        }
+        .file-upload-label {
+            cursor: pointer;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #f3f4f6;
+            border: 1px dashed #9ca3af;
+            border-radius: 6px;
+            text-align: center;
+            width: 100%;
+            transition: all 0.2s;
+        }
+        .file-upload-label:hover { background-color: #e5e7eb; border-color: #6b7280; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Toast Container -->
+    <div id="toast-container"></div>
+
+    <!-- Herbalife Compliance Top Bar -->
+    <div class="bg-green-800 text-white text-xs md:text-sm py-2 px-4 text-center">
+        <strong>Independent Herbalife Associate</strong> | Name: Shankar Chakraborty | Contact: <span id="top-phone-display">6289308561</span>
+        <div class="inline-block ml-4 space-x-2">
+            <a href="#" id="fb-link-display" target="_blank" class="text-white hover:text-gray-300"><i class="fab fa-facebook"></i></a>
+            <a href="#" id="ig-link-display" target="_blank" class="text-white hover:text-gray-300"><i class="fab fa-instagram"></i></a>
+            <a href="#" id="yt-link-display" target="_blank" class="text-white hover:text-gray-300"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+
+    <!-- Header / Navbar -->
+    <header class="bg-white shadow-sm sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img id="site-logo-display" src="https://via.placeholder.com/200x60?text=FITNESS+INDIA" alt="Fitness India Logo" class="h-12 object-contain">
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#" class="text-green-600 font-semibold border-b-2 border-green-600 pb-1">Home</a>
+                    <a href="#about" class="text-gray-500 hover:text-green-600 font-medium transition">About Us</a>
+                    <a href="#workouts" class="text-gray-500 hover:text-green-600 font-medium transition">Workouts</a>
+                    <a href="#nutrition" class="text-gray-500 hover:text-green-600 font-medium transition">Diet & Nutrition</a>
+                    <a href="#community" class="text-gray-500 hover:text-green-600 font-medium transition">Community</a>
+                </nav>
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#join" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-lg font-medium transition shadow-md">Join Now</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero-section" class="hero-bg py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+                        FIT INDIA<br>
+                        <span class="text-green-600">STRONG INDIA</span>
+                    </h1>
+                    <p class="mt-6 text-lg text-gray-700 max-w-lg">Your journey to a healthier, fitter and stronger version of yourself starts here.</p>
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="#join" class="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-full font-semibold text-lg transition shadow-lg">Get Started</a>
+                        <a href="#workouts" class="bg-white hover:bg-gray-50 text-green-700 border border-green-200 px-8 py-3 rounded-full font-semibold text-lg transition shadow-sm">Explore Workouts</a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img id="hero-right-img-display" src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80" alt="Fit Couple" class="w-full object-cover rounded-3xl shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Workouts Section -->
+    <section id="workouts" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-end mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 uppercase">Popular Workouts</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Card 1 -->
+            <div onclick="window.handleWorkoutClick(0)" class="group relative rounded-2xl overflow-hidden shadow-md cursor-pointer h-64">
+                <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=500&q=60" alt="Strength" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+                    <h3 class="text-white font-bold text-lg">Strength Training</h3>
+                </div>
+            </div>
+            <!-- Card 2 -->
+            <div onclick="window.handleWorkoutClick(1)" class="group relative rounded-2xl overflow-hidden shadow-md cursor-pointer h-64">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=500&q=60" alt="Yoga" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+                    <h3 class="text-white font-bold text-lg">Yoga</h3>
+                </div>
+            </div>
+            <!-- Card 3 -->
+            <div onclick="window.handleWorkoutClick(2)" class="group relative rounded-2xl overflow-hidden shadow-md cursor-pointer h-64">
+                <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=500&q=60" alt="Cardio" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+                    <h3 class="text-white font-bold text-lg">Cardio</h3>
+                </div>
+            </div>
+            <!-- Card 4 -->
+            <div onclick="window.handleWorkoutClick(3)" class="group relative rounded-2xl overflow-hidden shadow-md cursor-pointer h-64">
+                <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=500&q=60" alt="Nutrition" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-5">
+                    <h3 class="text-white font-bold text-lg">Nutrition</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lead Generation Form -->
+    <section id="join" class="py-16 max-w-4xl mx-auto px-4">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+            <div class="bg-green-600 text-white p-8 md:w-1/2">
+                <h2 class="text-3xl font-bold mb-4">Start Your Transformation!</h2>
+                <p class="opacity-90">Fill out the form and we will connect with you via WhatsApp.</p>
+            </div>
+            <div class="p-8 md:w-1/2">
+                <form id="lead-form" onsubmit="window.submitToWhatsApp(event)">
+                    <input type="text" id="userName" required class="w-full mb-4 px-4 py-2 border rounded-lg" placeholder="Name">
+                    <input type="tel" id="userPhone" required class="w-full mb-4 px-4 py-2 border rounded-lg" placeholder="WhatsApp No.">
+                    <select id="userGoal" class="w-full mb-4 px-4 py-2 border rounded-lg">
+                        <option value="Weight Loss">Weight Loss</option>
+                        <option value="Muscle Gain">Muscle Gain</option>
+                        <option value="General Fitness">General Fitness</option>
+                    </select>
+                    <button type="submit" class="w-full bg-green-600 text-white py-3 rounded-lg font-bold">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Transformations (Before & After) -->
+    <section id="transformations" class="py-16 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center text-gray-800 uppercase mb-10">Client Transformations</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Transformation 1 -->
+                <div class="rounded-2xl overflow-hidden shadow-lg bg-white p-2 border border-gray-100">
+                    <img id="trans-1-display" src="https://via.placeholder.com/400x400?text=Before+After+1" alt="Transformation 1" class="w-full h-80 object-cover rounded-xl">
+                </div>
+                <!-- Transformation 2 -->
+                <div class="rounded-2xl overflow-hidden shadow-lg bg-white p-2 border border-gray-100">
+                    <img id="trans-2-display" src="https://via.placeholder.com/400x400?text=Before+After+2" alt="Transformation 2" class="w-full h-80 object-cover rounded-xl">
+                </div>
+                <!-- Transformation 3 -->
+                <div class="rounded-2xl overflow-hidden shadow-lg bg-white p-2 border border-gray-100">
+                    <img id="trans-3-display" src="https://via.placeholder.com/400x400?text=Before+After+3" alt="Transformation 3" class="w-full h-80 object-cover rounded-xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Footer -->
+    <footer class="bg-gray-900 text-white pt-12 pb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <h3 class="text-2xl font-bold text-green-500">FITNESS INDIA</h3>
+                    <p class="text-gray-400 text-sm mt-2">Independent Herbalife Associate</p>
+                </div>
+                <!-- Social Links -->
+                <div class="flex space-x-6 justify-center">
+                    <a href="#" id="footer-fb-link" target="_blank" class="text-gray-400 hover:text-blue-500 text-2xl transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" id="footer-ig-link" target="_blank" class="text-gray-400 hover:text-pink-500 text-2xl transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" id="footer-yt-link" target="_blank" class="text-gray-400 hover:text-red-500 text-2xl transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-6 text-center text-gray-500 text-sm flex flex-col items-center">
+                <p class="mb-4">&copy; 2026 Fitness India. All rights reserved. Results are not typical, individual results may vary.</p>
+                <!-- Admin Panel Trigger inside footer -->
+                <button onclick="window.openAdminLogin()" class="text-gray-600 hover:text-green-600 text-xs transition flex items-center gap-1"><i class="fas fa-cog"></i> Admin Settings</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="login-modal" class="fixed inset-0 modal-overlay z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm relative">
+            <button onclick="window.closeModals()" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fas fa-times"></i></button>
+            <h2 class="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+            <form onsubmit="window.handleLogin(event)" class="space-y-4">
+                <input type="password" id="admin-password" class="w-full border p-3 rounded" placeholder="Enter Password" required>
+                <button type="submit" class="w-full bg-green-600 text-white py-3 rounded font-bold">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="dashboard-modal" class="fixed inset-0 modal-overlay z-50 flex items-center justify-center hidden">
+        <div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-4xl overflow-y-auto max-h-[90vh] relative">
+            <button onclick="window.closeModals()" class="absolute top-4 right-4 text-gray-400 text-xl"><i class="fas fa-times"></i></button>
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Admin Dashboard</h2>
+                <button onclick="window.logoutAdmin()" class="text-red-500 font-bold hover:underline">Logout</button>
+            </div>
+            
+            <form id="admin-settings-form" onsubmit="window.saveSettings(event)" class="space-y-6">
+                <!-- Basic Details -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h3 class="font-bold text-lg mb-3">Basic Settings</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">WhatsApp/Contact Phone</label>
+                            <input type="text" id="edit-phone" class="w-full border p-2 rounded" placeholder="6289308561">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Facebook Link</label>
+                            <input type="text" id="edit-fb" class="w-full border p-2 rounded" placeholder="https://facebook.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Instagram Link</label>
+                            <input type="text" id="edit-ig" class="w-full border p-2 rounded" placeholder="https://instagram.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">YouTube Link</label>
+                            <input type="text" id="edit-yt" class="w-full border p-2 rounded" placeholder="https://youtube.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Workout 1 URL</label>
+                            <input type="text" id="edit-vid1" class="w-full border p-2 rounded" placeholder="URL">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Workout 2 URL</label>
+                            <input type="text" id="edit-vid2" class="w-full border p-2 rounded" placeholder="URL">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Workout 3 URL</label>
+                            <input type="text" id="edit-vid3" class="w-full border p-2 rounded" placeholder="URL">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1">Workout 4 URL</label>
+                            <input type="text" id="edit-vid4" class="w-full border p-2 rounded" placeholder="URL">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Images Settings -->
+                <div class="bg-gray-50 p-4 rounded-lg border">
+                    <h3 class="font-bold text-lg mb-3">Site Images</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        <!-- Logo -->
+                        <div class="text-center">
+                            <label class="block text-sm font-medium mb-2">Site Logo</label>
+                            <label for="upload-logo" class="file-upload-label"><i class="fas fa-upload mr-2"></i>Select Image</label>
+                            <input type="file" id="upload-logo" accept="image/*" onchange="window.previewImage(this, 'preview-logo')">
+                            <img id="preview-logo" class="mt-3 max-h-24 mx-auto rounded hidden border" />
+                        </div>
+
+                        <!-- Hero BG -->
+                        <div class="text-center">
+                            <label class="block text-sm font-medium mb-2">Hero Background</label>
+                            <label for="upload-hero-bg" class="file-upload-label"><i class="fas fa-upload mr-2"></i>Select Image</label>
+                            <input type="file" id="upload-hero-bg" accept="image/*" onchange="window.previewImage(this, 'preview-hero-bg')">
+                            <img id="preview-hero-bg" class="mt-3 max-h-24 mx-auto rounded hidden border" />
+                        </div>
+
+                        <!-- Hero Right Image -->
+                        <div class="text-center">
+                            <label class="block text-sm font-medium mb-2">Hero Right Image</label>
+                            <label for="upload-hero-right" class="file-upload-label"><i class="fas fa-upload mr-2"></i>Select Image</label>
+                            <input type="file" id="upload-hero-right" accept="image/*" onchange="window.previewImage(this, 'preview-hero-right')">
+                            <img id="preview-hero-right" class="mt-3 max-h-24 mx-auto rounded hidden border" />
+                        </div>
+
+                        <!-- Transformation 1 -->
+                        <div class="text-center">
+                            <label class="block text-sm font-medium mb-2">Before & After 1</label>
+                            <label for="upload-trans-1" class="file-upload-label"><i class="fas fa-upload mr-2"></i>Select Image</label>
+                            <input type="file" id="upload-trans-1" accept="image/*" onchange="window.previewImage(this, 'preview-trans-1')">
+                            <img id="preview-trans-1" class="mt-3 max-h-24 mx-auto rounded hidden border" />
+                        </div>
+
+                        <!-- Transformation 2 -->
+                        <div class="text-center">
+                            <label class="block text-sm font-medium mb-2">Before & After 2</label>
+                            <label for="upload-trans-2" class="file-upload-label"><i class="fas fa-upload mr-2"></i>Select Image</label>
+                            <input type="file" id="upload-trans-2" accept="image/*" onchange="window.previewImage(this, 'preview-trans-2')">
+                            <img id="preview-trans-2" class="mt-3 max-h-24 mx-auto rounded hidden border" />
+                        </div>
+
+                        <!-- Transformation 3 -->
+                        <div class="text-center">
+                            <label class="block text-sm font-medium mb-2">Before & After 3</label>
+                            <label for="upload-trans-3" class="file-upload-label"><i class="fas fa-upload mr-2"></i>Select Image</label>
+                            <input type="file" id="upload-trans-3" accept="image/*" onchange="window.previewImage(this, 'preview-trans-3')">
+                            <img id="preview-trans-3" class="mt-3 max-h-24 mx-auto rounded hidden border" />
+                        </div>
+
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-bold text-lg shadow-md transition">Save All Changes</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!--                 JAVASCRIPT                 -->
+    <!-- ========================================== -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // ডায়নামিক অ্যাপ আইডি এবং কনফিগ
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'fitness-india-app';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+
+        // Only initialize if we have config
+        let app, auth, db;
+        try {
+            if(Object.keys(firebaseConfig).length > 0) {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+            }
+        } catch (err) {
+            console.error("Firebase Initialization skipped or failed:", err);
+        }
+
+        // Default Configuration
+        const defaultSettings = {
+            phone: '6289308561',
+            fb: '#',
+            ig: '#',
+            yt: '#',
+            vid1: '', vid2: '', vid3: '', vid4: '',
+            logoBase64: 'https://via.placeholder.com/200x60?text=FITNESS+INDIA',
+            heroBgBase64: '', 
+            heroRightBase64: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
+            trans1Base64: 'https://via.placeholder.com/400x400?text=Before+After+1',
+            trans2Base64: 'https://via.placeholder.com/400x400?text=Before+After+2',
+            trans3Base64: 'https://via.placeholder.com/400x400?text=Before+After+3'
+        };
+
+        window.tempImages = {};
+        window.currentSettingsGlobal = { ...defaultSettings };
+
+        async function initAuth() {
+            if(!auth) return;
+            try {
+                if (typeof __initial_auth_token !== 'undefined') {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                loadSettingsFromFirebase();
+            } catch (error) {
+                console.error("Auth Error:", error);
+            }
+        }
+
+        // 1. Toast Notification System
+        window.showToast = function(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            let icon = '';
+            if(type === 'success') icon = '<i class="fas fa-check-circle"></i>';
+            else if(type === 'error') icon = '<i class="fas fa-exclamation-circle"></i>';
+            else icon = '<i class="fas fa-info-circle"></i>';
+
+            toast.innerHTML = `${icon} <span>${message}</span>`;
+            container.appendChild(toast);
+
+            setTimeout(() => toast.classList.add('show'), 10);
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        };
+
+        // 2. Load Settings from Firebase
+        window.loadSettingsFromFirebase = function() {
+            if (!auth || !auth.currentUser) return;
+            const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'mainSite');
+            
+            onSnapshot(docRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    window.currentSettingsGlobal = { ...defaultSettings, ...docSnap.data() };
+                } else {
+                    window.currentSettingsGlobal = { ...defaultSettings };
+                }
+                applySettingsToUI();
+            }, (error) => {
+                console.error("Firebase Snapshot Error:", error);
+            });
+        };
+
+        // Helper to apply settings to the DOM
+        function applySettingsToUI() {
+            const savedSettings = window.currentSettingsGlobal;
+            
+            // Text & Links
+            if(document.getElementById('top-phone-display')) document.getElementById('top-phone-display').innerText = savedSettings.phone;
+            
+            // Top Bar Social Links
+            if(document.getElementById('fb-link-display')) document.getElementById('fb-link-display').href = savedSettings.fb;
+            if(document.getElementById('ig-link-display')) document.getElementById('ig-link-display').href = savedSettings.ig;
+            if(document.getElementById('yt-link-display')) document.getElementById('yt-link-display').href = savedSettings.yt;
+
+            // Footer Social Links
+            if(document.getElementById('footer-fb-link')) document.getElementById('footer-fb-link').href = savedSettings.fb;
+            if(document.getElementById('footer-ig-link')) document.getElementById('footer-ig-link').href = savedSettings.ig;
+            if(document.getElementById('footer-yt-link')) document.getElementById('footer-yt-link').href = savedSettings.yt;
+
+            // Images
+            if(savedSettings.logoBase64 && document.getElementById('site-logo-display')) document.getElementById('site-logo-display').src = savedSettings.logoBase64;
+            
+            if(document.getElementById('hero-section')) {
+                if(savedSettings.heroBgBase64) {
+                    document.getElementById('hero-section').style.backgroundImage = `url(${savedSettings.heroBgBase64})`;
+                } else {
+                    document.getElementById('hero-section').style.backgroundImage = ''; 
+                }
+            }
+
+            if(savedSettings.heroRightBase64 && document.getElementById('hero-right-img-display')) {
+                document.getElementById('hero-right-img-display').src = savedSettings.heroRightBase64;
+            }
+
+            // Transformation Images
+            if(savedSettings.trans1Base64 && document.getElementById('trans-1-display')) document.getElementById('trans-1-display').src = savedSettings.trans1Base64;
+            if(savedSettings.trans2Base64 && document.getElementById('trans-2-display')) document.getElementById('trans-2-display').src = savedSettings.trans2Base64;
+            if(savedSettings.trans3Base64 && document.getElementById('trans-3-display')) document.getElementById('trans-3-display').src = savedSettings.trans3Base64;
+        }
+
+        // 3. Lead Generation (WhatsApp Submit)
+        window.submitToWhatsApp = function(e) {
+            e.preventDefault();
+            const name = document.getElementById('userName').value;
+            const userPhone = document.getElementById('userPhone').value;
+            const goal = document.getElementById('userGoal') ? document.getElementById('userGoal').value : 'Fitness';
+            
+            let adminPhone = window.currentSettingsGlobal.phone.replace(/\D/g, ''); 
+            if(adminPhone.length === 10) {
+                adminPhone = '91' + adminPhone;
+            }
+
+            const message = `Hello, I am ${name}.\nMy phone number: ${userPhone}\nI am interested in the ${goal} program. Please provide more details.`;
+            const whatsappUrl = `https://wa.me/${adminPhone}?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            window.showToast('Opening WhatsApp...', 'success');
+            document.getElementById('lead-form').reset();
+        };
+
+        // 3.5 Workout Click
+        window.handleWorkoutClick = function(index) {
+            const settings = window.currentSettingsGlobal;
+            const videoLinks = [settings.vid1, settings.vid2, settings.vid3, settings.vid4];
+            
+            if (videoLinks[index] && videoLinks[index].trim() !== '') {
+                window.open(videoLinks[index], '_blank');
+            } else {
+                document.getElementById('join').scrollIntoView({behavior: 'smooth'});
+            }
+        };
+
+        // 4. Admin Panel Logic
+        window.openAdminLogin = function() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('admin-password').value = '';
+            document.getElementById('admin-password').focus();
+        };
+
+        window.closeModals = function() {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('dashboard-modal').classList.add('hidden');
+        };
+
+        window.handleLogin = function(e) {
+            e.preventDefault();
+            const pass = document.getElementById('admin-password').value;
+            
+            if(pass === '2010BITAN') {
+                window.showToast('Login Successful!', 'success');
+                document.getElementById('login-modal').classList.add('hidden');
+                window.openDashboard();
+            } else {
+                window.showToast('Incorrect Password!', 'error');
+            }
+        };
+
+        window.logoutAdmin = function() {
+            window.closeModals();
+            window.showToast('Logged out successfully.', 'info');
+        };
+
+        // 5. Dashboard Data Population
+        window.openDashboard = function() {
+            const savedSettings = window.currentSettingsGlobal;
+            
+            document.getElementById('edit-phone').value = savedSettings.phone || defaultSettings.phone;
+            document.getElementById('edit-fb').value = (savedSettings.fb && savedSettings.fb !== '#') ? savedSettings.fb : '';
+            document.getElementById('edit-ig').value = (savedSettings.ig && savedSettings.ig !== '#') ? savedSettings.ig : '';
+            document.getElementById('edit-yt').value = (savedSettings.yt && savedSettings.yt !== '#') ? savedSettings.yt : '';
+            
+            document.getElementById('edit-vid1').value = savedSettings.vid1 || '';
+            document.getElementById('edit-vid2').value = savedSettings.vid2 || '';
+            document.getElementById('edit-vid3').value = savedSettings.vid3 || '';
+            document.getElementById('edit-vid4').value = savedSettings.vid4 || '';
+
+            window.tempImages = {};
+            
+            ['preview-logo', 'preview-hero-bg', 'preview-hero-right', 'preview-trans-1', 'preview-trans-2', 'preview-trans-3'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.classList.add('hidden');
+                    el.src = '';
+                }
+            });
+
+            document.getElementById('dashboard-modal').classList.remove('hidden');
+        };
+
+        window.previewImage = function(input, previewId) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewElement = document.getElementById(previewId);
+                    previewElement.src = e.target.result;
+                    previewElement.classList.remove('hidden');
+                    
+                    let keyName = '';
+                    if(previewId === 'preview-logo') keyName = 'logoBase64';
+                    if(previewId === 'preview-hero-bg') keyName = 'heroBgBase64';
+                    if(previewId === 'preview-hero-right') keyName = 'heroRightBase64';
+                    if(previewId === 'preview-trans-1') keyName = 'trans1Base64';
+                    if(previewId === 'preview-trans-2') keyName = 'trans2Base64';
+                    if(previewId === 'preview-trans-3') keyName = 'trans3Base64';
+                    
+                    window.tempImages[keyName] = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        window.saveSettings = async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            submitBtn.disabled = true;
+
+            let currentSettings = window.currentSettingsGlobal;
+            
+            // লিংকের আগে https:// অটোমেটিক যোগ করার কোড
+            const formatURL = (url, fallback) => {
+                if (!url || url.trim() === '') return fallback;
+                if (url === '#') return url;
+                if (!/^https?:\/\//i.test(url)) return 'https://' + url;
+                return url;
+            };
+            
+            const newSettings = {
+                phone: document.getElementById('edit-phone').value || currentSettings.phone,
+                fb: formatURL(document.getElementById('edit-fb').value, currentSettings.fb),
+                ig: formatURL(document.getElementById('edit-ig').value, currentSettings.ig),
+                yt: formatURL(document.getElementById('edit-yt').value, currentSettings.yt),
+                
+                vid1: document.getElementById('edit-vid1').value || '',
+                vid2: document.getElementById('edit-vid2').value || '',
+                vid3: document.getElementById('edit-vid3').value || '',
+                vid4: document.getElementById('edit-vid4').value || '',
+
+                logoBase64: window.tempImages.logoBase64 !== undefined ? window.tempImages.logoBase64 : currentSettings.logoBase64,
+                heroBgBase64: window.tempImages.heroBgBase64 !== undefined ? window.tempImages.heroBgBase64 : currentSettings.heroBgBase64,
+                heroRightBase64: window.tempImages.heroRightBase64 !== undefined ? window.tempImages.heroRightBase64 : currentSettings.heroRightBase64,
+                
+                trans1Base64: window.tempImages.trans1Base64 !== undefined ? window.tempImages.trans1Base64 : currentSettings.trans1Base64,
+                trans2Base64: window.tempImages.trans2Base64 !== undefined ? window.tempImages.trans2Base64 : currentSettings.trans2Base64,
+                trans3Base64: window.tempImages.trans3Base64 !== undefined ? window.tempImages.trans3Base64 : currentSettings.trans3Base64
+            };
+
+            // If Firebase is active, save to Firestore
+            if (db && auth && auth.currentUser) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'settings', 'mainSite');
+                    await setDoc(docRef, newSettings);
+                    window.showToast('Changes saved to Firebase successfully!', 'success');
+                    setTimeout(window.closeModals, 1000);
+                } catch (error) {
+                    console.error(error);
+                    if(error.code === 'resource-exhausted') {
+                        window.showToast('Image size is too large. Please upload a smaller image.', 'error');
+                    } else {
+                        window.showToast('Error saving to Firebase.', 'error');
+                    }
+                }
+            } else {
+                // Fallback for local testing if Firebase is not connected
+                window.currentSettingsGlobal = newSettings;
+                applySettingsToUI();
+                window.showToast('Changes saved locally!', 'success');
+                setTimeout(window.closeModals, 1000);
+            }
+
+            submitBtn.innerHTML = originalBtnText;
+            submitBtn.disabled = false;
+        };
+
+        // Start initialization
+        initAuth();
+    </script>
+</body>
+</html>
